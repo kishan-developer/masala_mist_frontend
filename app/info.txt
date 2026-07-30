@@ -1,0 +1,64 @@
+
+Sands Of Kashi
+
+Websit + Dashbaord ( Admin , User , Manager , Team )
+
+Website 
+    Home 
+    About
+    Rooms
+    Contact
+    Services
+    Booking Page
+    Events
+    Social Media ( Best Reals and Post )
+    User Booking Page
+    Payment Option
+
+
+Dashbaord 
+    Admin 
+        Dashbaord ( Overview Page )
+        Room Management ( Update Room Details and Add Rooms Details)
+        Employe Management ( Manage Every Employe Details )
+        Booking Details
+        Rooms Details
+        Profile
+        Notification
+        Support ( chatboat )
+        Track User Activity 
+    
+    User
+        Dashbaord ( Overview Page)
+        Booking Details ( With Time Details )
+        Check in Check Out Details ( show every details if your time is over before room check than increase time per hr. )
+        Payment Details
+
+    Management Dashbaord
+        Dashbaord ( Overview Page).
+        Room Booking Status ( Online booking and offline booking both are handle in one Dashbaord automation update everthing ).
+        Team Management ( Present / Absent).
+        all user data in table sheet 
+
+
+
+Features 
+    Whatsapp automation
+    email automation 
+    Booking automation
+    Track User Activity in Website and get user phone number
+
+    Note : More Advance Room Booking Process  
+
+    Payment Gatway 
+
+
+    Notification Status Phone or Email or Whatsapp
+
+    channel Manager feature. 
+        Manage everthing about booking status ( Room, )
+    
+
+
+
+
