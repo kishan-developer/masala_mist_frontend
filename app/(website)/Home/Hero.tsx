@@ -88,7 +88,7 @@ const Hero = () => {
         {/* CTA Button */}
         <div className="hidden md:flex items-center justify-center gap-5 md:gap-20">
           <Link
-            href="/rooms"
+            href="/booking"
             className="bg-[#b5946a] hover:bg-[#a3835a] transition-colors px-8 py-4 rounded-sm text-sm uppercase tracking-widest font-medium"
           >
             Book Your Stay

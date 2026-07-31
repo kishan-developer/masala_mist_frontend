@@ -73,7 +73,7 @@ export default function RoomListing() {
                   <div className="flex items-center justify-between pt-4 border-t">
                     <p className="text-xl font-medium text-[#c5a37f]">₹{room.price}.00</p>
                     <Link
-                      href={"/room_details" as Route}
+                      href={`/rooms/${room.title.toLowerCase().replace(/\s+/g, '_')}` as Route}
                       className="text-sm underline hover:text-[#c5a37f]">
                       Discover More
                     </Link>
@@ -85,9 +85,9 @@ export default function RoomListing() {
 
           <div className="mt-12 text-center">
             <Link
-              href={"/room_details" as Route}
+              href={"/rooms/standard_room" as Route}
               className="px-8 py-3 border rounded-md hover:bg-gray-50">
-              Load More
+              View All Rooms
             </Link>
           </div>
         </div>

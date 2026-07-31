@@ -45,6 +45,8 @@ const Page = () => {
 
     const [reservationData, setReservationData] = useState({
         name: '',
+        phone: '',
+        email: '',
         guests: '1 Person',
         date: '',
         time: ''
@@ -63,16 +65,17 @@ const Page = () => {
         }
         setReservationLoading(true);
         try {
-            const res = await fetch('/api/restaurant', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/restaurant/reservation`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type: 'RESERVATION', ...reservationData }),
+                body: JSON.stringify(reservationData),
             });
+            const data = await res.json();
             if (res.ok) {
-                toast.success("Table reservation request sent! We will contact you soon.");
-                setReservationData({ name: '', guests: '1 Person', date: '', time: '' });
+                toast.success("Table reservation confirmed! Check your email for details.");
+                setReservationData({ name: '', phone: '', email: '', guests: '1 Person', date: '', time: '' });
             } else {
-                toast.error("Failed to send reservation request.");
+                toast.error(data.message || "Failed to send reservation request.");
             }
         } catch (error) {
             toast.error("An error occurred. Please try again.");
@@ -89,16 +92,17 @@ const Page = () => {
         }
         setInquiryLoading(true);
         try {
-            const res = await fetch('/api/restaurant', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/restaurant/inquiry`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type: 'INQUIRY', ...inquiryData }),
+                body: JSON.stringify(inquiryData),
             });
+            const data = await res.json();
             if (res.ok) {
-                toast.success("Inquiry sent successfully!");
+                toast.success("Inquiry sent successfully! Check your email for confirmation.");
                 setInquiryData({ email: '', message: '' });
             } else {
-                toast.error("Failed to send inquiry.");
+                toast.error(data.message || "Failed to send inquiry.");
             }
         } catch (error) {
             toast.error("An error occurred. Please try again.");

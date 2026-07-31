@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShoppingBag, Utensils } from 'lucide-react';
+import Link from 'next/link';
 
 const OnlineOrdering = () => {
     return (
@@ -14,7 +15,9 @@ const OnlineOrdering = () => {
                             <ShoppingBag />
                         </div>
                         <h4 className="text-white font-bold mb-4">Direct Order</h4>
-                        <button className="w-full py-2 bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest">Order On Website</button>
+                        <Link href="/resturant/order">
+                            <button className="w-full py-2 bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest">Order On Website</button>
+                        </Link>
                     </div>
                     <div className="bg-black p-8 rounded-3xl border border-white/5 w-64 hover:border-[#f30] transition-all group">
                         <div className="w-16 h-16 bg-red-500/10 rounded-full mx-auto mb-6 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import BookingSuccessModal from "./BookingSuccessModal";
 
 interface BookingFormProps {
   onSuccess?: () => void;
@@ -18,6 +19,7 @@ export default function BookingForm({ onSuccess, initialRoomType = "" }: Booking
   const [message, setMessage] = useState("");
   const [roomType, setRoomType] = useState(initialRoomType);
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [openDate, setOpenDate] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -54,7 +56,7 @@ export default function BookingForm({ onSuccess, initialRoomType = "" }: Booking
       const data = await res.json();
 
       if (res.ok) {
-        toast.success("Booking Request Sent to Server Successfully!");
+        setShowSuccessModal(true);
         setName("");
         setEmail("");
         setPhone("");
@@ -188,6 +190,12 @@ export default function BookingForm({ onSuccess, initialRoomType = "" }: Booking
           {loading ? "Processing..." : "Confirm Booking"}
         </button>
       </form>
+
+      {/* Success Modal */}
+      <BookingSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+      />
     </div>
   );
 }

@@ -187,12 +187,12 @@ export default function RoomsGridSection() {
             </div>
 
 
-            <button
-              // onClick={() => setBookingRoom(modalRoom)}
-              className="px-2 py-2 bg-[#8c735a] mt-10 text-white rounded-md hover:bg-[#705c49] transition"
+            <Link
+              href="/booking"
+              className="px-2 py-2 bg-[#8c735a] mt-10 text-white rounded-md hover:bg-[#705c49] transition block text-center"
             >
               Book Now
-            </button>
+            </Link>
           </div>
         </div>
       )}

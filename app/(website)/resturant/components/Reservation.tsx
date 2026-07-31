@@ -7,6 +7,8 @@ interface ReservationProps {
         guests: string;
         date: string;
         time: string;
+        phone: string;
+        email: string;
     };
     setReservationData: (data: any) => void;
     handleReservationSubmit: (e: React.FormEvent) => void;
@@ -44,9 +46,30 @@ const Reservation: React.FC<ReservationProps> = ({
                                 type="text"
                                 value={reservationData.name}
                                 onChange={(e) => setReservationData({ ...reservationData, name: e.target.value })}
-                                style={{ color: "white" }}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md"
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white placeholder-gray-400"
                                 placeholder="Enter your full name"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-[10px] uppercase tracking-widest font-bold text-gray-200">Phone Number</label>
+                            <input
+                                type="tel"
+                                value={reservationData.phone}
+                                onChange={(e) => setReservationData({ ...reservationData, phone: e.target.value })}
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white placeholder-gray-400"
+                                placeholder="Enter your phone number"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-[10px] uppercase tracking-widest font-bold text-gray-200">Email Address</label>
+                            <input
+                                type="email"
+                                value={reservationData.email}
+                                onChange={(e) => setReservationData({ ...reservationData, email: e.target.value })}
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white placeholder-gray-400"
+                                placeholder="Enter your email"
                                 required
                             />
                         </div>
@@ -55,23 +78,21 @@ const Reservation: React.FC<ReservationProps> = ({
                             <select
                                 value={reservationData.guests}
                                 onChange={(e) => setReservationData({ ...reservationData, guests: e.target.value })}
-                                style={{ color: "white" }}
-                                className="w-full text-white bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md appearance-none"
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white appearance-none"
                             >
-                                <option className="bg-black">1 Person</option>
-                                <option className="bg-black">2 Persons</option>
-                                <option className="bg-black">4 Persons</option>
-                                <option className="bg-black">6+ Persons</option>
+                                <option value="1 Person" className="bg-black text-white">1 Person</option>
+                                <option value="2 Persons" className="bg-black text-white">2 Persons</option>
+                                <option value="4 Persons" className="bg-black text-white">4 Persons</option>
+                                <option value="6+ Persons" className="bg-black text-white">6+ Persons</option>
                             </select>
                         </div>
-                        <div className="space-y-1 text-white">
+                        <div className="space-y-1">
                             <label className="text-[10px] uppercase tracking-widest font-bold text-gray-200">Date</label>
                             <input
                                 type="date"
                                 value={reservationData.date}
                                 onChange={(e) => setReservationData({ ...reservationData, date: e.target.value })}
-                                style={{ color: "white", colorScheme: "dark" }}
-                                className="w-full text-white bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md"
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white [color-scheme:dark]"
                                 required
                             />
                         </div>
@@ -81,8 +102,7 @@ const Reservation: React.FC<ReservationProps> = ({
                                 type="time"
                                 value={reservationData.time}
                                 onChange={(e) => setReservationData({ ...reservationData, time: e.target.value })}
-                                style={{ color: "white", colorScheme: "dark" }}
-                                className="w-full text-white bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md"
+                                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-[#c5a059] transition-all text-md text-white [color-scheme:dark]"
                                 required
                             />
                         </div>

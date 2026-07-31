@@ -3,13 +3,11 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X, Bell } from "lucide-react";
 import Link from "next/link";
-import BookingModal from "./BookingModal";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifyOpen, setNotifyOpen] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -33,19 +31,19 @@ export default function Header() {
         {/* DESKTOP NAV - Hidden on mobile and tablet, visible on laptop/desktop */}
         <div className="hidden lg:flex items-center  gap-5">
           <nav className="flex text-base lg:text-lg items-center capitalize space-x-4 lg:space-x-6 text-white font-medium">
-            <Link href="/rooms" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Our Rooms</Link>
+            <Link href="/booking" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Our Rooms</Link>
             <Link href="/resturant" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Restaurant</Link>
             <Link href="/about" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">About</Link>
             <Link href="/blogs" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Blogs</Link>
             <Link href="/contact" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Contact</Link>
           </nav>
 
-          <button
-            onClick={() => setIsBookingModalOpen(true)}
+          <Link
+            href="/booking"
             className="px-4 lg:px-6 py-2 font-serif uppercase bg-[#b5946a] text-white text-sm lg:text-base rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95"
           >
             Book Now
-          </button>
+          </Link>
         </div>
 
         {/* MOBILE/TABLET MENU BUTTON */}
@@ -69,23 +67,15 @@ export default function Header() {
             <Link href="/contact" onClick={() => setOpen(false)} className="py-2 hover:text-[#b5946a] transition-colors font-serif uppercase">Contact</Link>
           </nav>
 
-          <button
-            onClick={() => {
-              setIsBookingModalOpen(true);
-              setOpen(false);
-            }}
+          <Link
+            href="/booking"
+            onClick={() => setOpen(false)}
             className="w-full mt-4 px-6 py-3 bg-[#b5946a] font-serif uppercase text-white text-sm rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95 opacity-0 animate-fadeIn"
           >
             Book Now
-          </button>
+          </Link>
         </div>
       )}
-
-      {/* Booking Modal */}
-      <BookingModal 
-        isOpen={isBookingModalOpen} 
-        onClose={() => setIsBookingModalOpen(false)} 
-      />
     </header>
   );
 }

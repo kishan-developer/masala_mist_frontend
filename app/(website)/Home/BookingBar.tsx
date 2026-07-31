@@ -74,7 +74,7 @@ const BookingBar = () => {
         </div>
 
         {/* Submit Button */}
-        <Link href="/rooms"
+        <Link href="/booking"
           type="submit"
           className="w-full lg:w-auto bg-[#b5946a] hover:bg-[#a3835a] text-white px-6 md:px-10 py-3 md:py-5 rounded-lg font-semibold transition-all whitespace-nowrap text-sm md:text-base"
         >
