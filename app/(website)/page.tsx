@@ -7,7 +7,6 @@ import VideoHeroSection from './Home/VideoHeroSection';
 import SpecialOffers from './Home/SpecialOffers';
 import InstagramGallery from './Home/InstagramGallery';
 import { Gallery } from './Home/Gallery'
-import Rooms_Grid from './Home/Rooms_Grid';
 import DistanceSection from './Home/DistanceSection';
 
 export default function page() {
