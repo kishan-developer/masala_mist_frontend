@@ -160,10 +160,10 @@ const ChatBot = () => {
 
               {/* Hotel Support */}
               <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-gray-400 px-1">Hotel Support (Sands Kashi)</span>
+                <span className="text-[10px] uppercase tracking-wider font-bold text-gray-400 px-1">Hotel Support (Sands Of Kashi)</span>
                 <div className="grid grid-cols-2 gap-2">
                   <a
-                    href="https://wa.me/915423533526"
+                    href="https://wa.me/917522801564"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 p-2 bg-[#25D366] text-white rounded-xl text-[10px] font-bold hover:bg-[#20bd5a] transition-all shadow-sm uppercase"
@@ -172,7 +172,7 @@ const ChatBot = () => {
                     WhatsApp
                   </a>
                   <a
-                    href="tel:+915423533526"
+                    href="tel:+917522801564"
                     className="flex items-center justify-center gap-2 p-2 bg-[#e67e22] text-white rounded-xl text-[10px] font-bold hover:opacity-90 transition-all shadow-sm uppercase"
                   >
                     <Phone size={12} />
