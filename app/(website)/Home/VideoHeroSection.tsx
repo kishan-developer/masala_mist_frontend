@@ -10,12 +10,12 @@ export default function VideoHeroSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
         style={{ 
-          backgroundImage: `url('./room_1.jpg')`, // Replace with your image path
+          backgroundImage: `url('https://res.cloudinary.com/drmpv5vne/image/upload/v1783764978/DSC_0361_uqgmnq.jpg')`, // Replace with your image path
         }}
       >
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/20" />
-      </div>
+      </div>  
 
       {/* Centered Play Button Area */}
       <div className="absolute inset-0 flex items-center justify-center">

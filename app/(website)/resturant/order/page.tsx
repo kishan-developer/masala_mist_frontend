@@ -134,8 +134,8 @@ const OrderPage = () => {
       <ToastContainer theme="dark" position="bottom-right" />
       
       {/* Header */}
-      <div className="bg-[#1a1a1a] border-b border-white/10 py-4 h-[30vh] px-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className=" border-b border-white/10 pt-40 px-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between py-5">
           <Link href="/resturant" className="flex items-center gap-2 text-[#c5a059] hover:text-white transition-colors">
             <ArrowLeft size={20} />
             <span className="font-bold">Back to Restaurant</span>

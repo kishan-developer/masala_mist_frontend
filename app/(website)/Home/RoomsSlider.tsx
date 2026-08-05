@@ -33,7 +33,7 @@ const rooms: Room[] = [
     size: "130 sq.ft (12 sq.mt)",
     capacity: "Max 3 Guests",
     price: "₹3500.00",
-    url: "/rooms/standard_room"
+    url: "/booking/standard_room"
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const rooms: Room[] = [
     size: "200 sq.ft (19 sq.mt)",
     capacity: "Max 3 Guests",
     price: "₹4500.00",
-    url: "/rooms/executive_room"
+    url: "/booking/executive_room"
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const rooms: Room[] = [
     size: "282 sq.ft (26 sq.mt)",
     capacity: "Max 3 Guests",
     price: "₹5500.00",
-    url: "/rooms/royal_suite_room"
+    url: "/booking/royal_suite_room"
   },
 ];
 
