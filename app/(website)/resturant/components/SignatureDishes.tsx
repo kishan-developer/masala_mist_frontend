@@ -15,7 +15,7 @@ const SignatureDishes: React.FC<SignatureDishesProps> = ({ vegItems }) => {
     return (
         <section id="signature-dishes" className="py-24 px-2 md:px-6 overflow-visible">
             <div className="max-w-7xl mx-auto text-center mb-16">
-                <span className="text-[#c5a059] text-sm uppercase tracking-[0.3em] font-bold block mb-4">Chef's Recommendations</span>
+                <span className="text-[#c5a059] text-sm uppercase tracking-[0.3em] font-bold block mb-4">Chef&apos;s Recommendations</span>
                 <h2 className="text-4xl md:text-5xl font-serif text-white">Signature Masterpieces</h2>
             </div>
 

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { poppins, montserrat, playfair, raleway } from "./fonts";
 import "./globals.css";
 
+export const metadata: Metadata = {
+  title: "Masala Mist - Sands of Kashi",
+  description: "Exquisite dining experience at Masala Mist, Sands of Kashi",
+};
+
 
 export default function RootLayout({
   children,

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Clock, Phone, Instagram, MapPin } from 'lucide-react';
 
+interface InquiryData {
+    email: string;
+    message: string;
+}
+
 interface LocationContactProps {
-    inquiryData: {
-        email: string;
-        message: string;
-    };
-    setInquiryData: (data: any) => void;
+    inquiryData: InquiryData;
+    setInquiryData: (data: InquiryData) => void;
     handleInquirySubmit: (e: React.FormEvent) => void;
     inquiryLoading: boolean;
 }

@@ -6,8 +6,8 @@ const OnlineOrdering = () => {
     return (
         <section id="online-ordering" className="py-10 md:py-24 px-4 md:px-6 bg-[#0f0f0f]">
             <div className="max-w-7xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-serif text-white mb-6">Can't Come To Us?</h2>
-                <p className="text-gray-500 mb-12 uppercase tracking-[0.2em] text-xs">We'll bring the experience to you</p>
+                <h2 className="text-3xl md:text-4xl font-serif text-white mb-6">Can&apos;t Come To Us?</h2>
+                <p className="text-gray-500 mb-12 uppercase tracking-[0.2em] text-xs">We&apos;ll bring the experience to you</p>
 
                 <div className="flex md:flex-row flex-wrap justify-center gap-8">
                     <div className="bg-black p-8 rounded-3xl border border-white/5 w-64 hover:border-[#c5a059] transition-all group">

@@ -1,16 +1,18 @@
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
 
+interface ReservationData {
+    name: string;
+    guests: string;
+    date: string;
+    time: string;
+    phone: string;
+    email: string;
+}
+
 interface ReservationProps {
-    reservationData: {
-        name: string;
-        guests: string;
-        date: string;
-        time: string;
-        phone: string;
-        email: string;
-    };
-    setReservationData: (data: any) => void;
+    reservationData: ReservationData;
+    setReservationData: (data: ReservationData) => void;
     handleReservationSubmit: (e: React.FormEvent) => void;
     reservationLoading: boolean;
 }
