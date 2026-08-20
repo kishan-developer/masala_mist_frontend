@@ -12,10 +12,17 @@ const SpecialOffers = () => {
                             <h2 className="text-4xl font-serif text-white mb-4">Luxury Dining At <span className="text-[#c5a059]">20% Off</span></h2>
                             <p className="text-gray-400 mb-8">Valid for first-time website bookings this month. Experience our Signature Tasting Menu with an exclusive discount.</p>
                             <div className="flex gap-4">
-                                <button className="bg-white text-black px-4 md:px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#c5a059] transition-colors">Claim Now</button>
+                                <a
+                                    href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/register` : "https://dashboard.masalamist.in/register"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block bg-white text-black px-4 md:px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#c5a059] transition-colors text-center"
+                                >
+                                    Claim Now
+                                </a>
                                 <div className="flex flex-col justify-center">
                                     <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">PROMO CODE</p>
-                                    <p className="text-[#c5a059] font-bold">Masala Mist2024</p>
+                                    <p className="text-[#c5a059] font-bold">MS-82B04</p>
                                 </div>
                             </div>
                         </div>

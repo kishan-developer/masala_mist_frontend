@@ -20,11 +20,17 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Sands Of Kashi",
-  description: "Sands Of Kashi Hotel in Varanasi | Varanasi Hotel",
-};
+const ICON_URL = "https://res.cloudinary.com/drmpv5vne/image/upload/v1787144253/masala_mist_logo.png_xufdkj.jpg";
 
+export const metadata: Metadata = {
+  title: "Masala Mist",
+  description: "Masala Mist Resturant in Varanasi | Varanasi Resturant",
+  icons: {
+    icon: ICON_URL,
+    shortcut: ICON_URL,
+    apple: ICON_URL,
+  },
+};
 
 export default function RootLayout({
   children,
@@ -33,15 +39,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={ICON_URL} />
+        <link rel="shortcut icon" href={ICON_URL} />
+        <link rel="apple-touch-icon" href={ICON_URL} />
+      </head>
       <body
         className={`${playfair.className} ${montserrat.className} antialiased`}
       >
         <Header />
         {children}
-        {/* <ToastContainer position="top-right" autoClose={3000} /> */}
         <ChatBot />
         <Footer />
       </body>
     </html>
   );
 }
+

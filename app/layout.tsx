@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import { poppins, montserrat, playfair, raleway } from "./fonts";
 import "./globals.css";
 
+const ICON_URL = "https://res.cloudinary.com/drmpv5vne/image/upload/v1787144253/masala_mist_logo.png_xufdkj.jpg";
+
 export const metadata: Metadata = {
   title: "Masala Mist - Sands of Kashi",
   description: "Exquisite dining experience at Masala Mist, Sands of Kashi",
+  icons: {
+    icon: ICON_URL,
+    shortcut: ICON_URL,
+    apple: ICON_URL,
+  },
 };
 
 
@@ -15,6 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={ICON_URL} />
+        <link rel="shortcut icon" href={ICON_URL} />
+        <link rel="apple-touch-icon" href={ICON_URL} />
+      </head>
       <body
         className={`${poppins.variable} ${montserrat.variable} ${playfair.variable} ${raleway.variable} font-poppins antialiased`}
       >

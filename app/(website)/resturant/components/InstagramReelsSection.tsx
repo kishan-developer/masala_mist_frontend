@@ -23,67 +23,67 @@ const InstagramReelsSection: React.FC = () => {
     // Add thumbnail images to /public/resturant/thumbnails/ folder (reel-1.jpg through reel-12.jpg)
     // If no thumbnail is provided, cards will show a premium gradient background
     const reels: ReelData[] = [
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DNXNgs0PMQ5/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DNXNgs0PMQ5/",
             title: "Food close-up: Signature Hyderabadi Biryani",
-            views: "60.1K" 
+            views: "60.1K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR3-J0Hk4op/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR3-J0Hk4op/",
             title: "Restaurant interior: Elegant dining ambiance",
-            views: "13.5K" 
+            views: "13.5K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DOAjatfgTkT/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DOAjatfgTkT/",
             title: "Customer experience: Happy diners",
-            views: "9.5K" 
+            views: "9.5K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR1w6TMjxRK/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR1w6TMjxRK/",
             title: "Promotional offer: Weekend special",
-            views: "8.8K" 
+            views: "8.8K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR7C_PskghY/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR7C_PskghY/",
             title: "Special event: Festival celebration",
-            views: "6.6K" 
+            views: "6.6K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR_Wf7kE6tw/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DR_Wf7kE6tw/",
             title: "Restaurant ambience: Evening vibes",
-            views: "5.0K" 
+            views: "5.0K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DPGTCSrkWJ4/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DPGTCSrkWJ4/",
             title: "Signature dish: Paneer Tikka",
-            views: "2.7K" 
+            views: "2.7K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DMaxTWvv2TW/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/DMaxTWvv2TW/",
             title: "Dining experience: Family dinner",
-            views: "2.2K" 
+            views: "2.2K"
         },
         // Add 4 more real reel IDs from your Instagram page below
         // Visit https://www.instagram.com/masalamist_sok/reels/ to get actual reel IDs
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/",
             title: "Festival celebration: Diwali special",
-            views: "1.8K" 
+            views: "1.8K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/",
             title: "Behind-the-scenes: Kitchen prep",
-            views: "1.5K" 
+            views: "1.5K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/",
             title: "Chef preparation: Tandoori magic",
-            views: "1.2K" 
+            views: "1.2K"
         },
-        { 
-            reelUrl: "https://www.instagram.com/masalamist_sok/reel/", 
+        {
+            reelUrl: "https://www.instagram.com/masalamist_sok/reel/",
             title: "Latest promotional: New menu launch",
-            views: "1.0K" 
+            views: "1.0K"
         },
     ];
 
@@ -114,10 +114,10 @@ const InstagramReelsSection: React.FC = () => {
 
     return (
         <section className="py-24 px-6 bg-[#0a0a0a]">
-            <ReelModal 
-                isOpen={!!selectedReel} 
-                reelUrl={selectedReel || ''} 
-                onClose={handleCloseModal} 
+            <ReelModal
+                isOpen={!!selectedReel}
+                reelUrl={selectedReel || ''}
+                onClose={handleCloseModal}
             />
 
             <div className="max-w-7xl mx-auto">
@@ -138,7 +138,7 @@ const InstagramReelsSection: React.FC = () => {
                     >
                         Social Media
                     </motion.span>
-                    
+
                     <motion.h2
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -148,7 +148,7 @@ const InstagramReelsSection: React.FC = () => {
                     >
                         Latest From Masala Mist
                     </motion.h2>
-                    
+
                     <motion.p
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}

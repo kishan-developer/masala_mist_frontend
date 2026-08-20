@@ -15,9 +15,15 @@ const OnlineOrdering = () => {
                             <ShoppingBag />
                         </div>
                         <h4 className="text-white font-bold mb-4">Direct Order</h4>
-                        <Link href="/resturant/order">
-                            <button className="w-full py-2 bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest">Order On Website</button>
-                        </Link>
+                        <a
+                            href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/register` : "https://dashboard.masalamist.in/register"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <button className="w-full py-2 bg-[#c5a059] hover:bg-white text-black rounded-lg text-xs font-black uppercase tracking-widest transition-colors">
+                                Get Coupons
+                            </button>
+                        </a>
                     </div>
                     <div className="bg-black p-8 rounded-3xl border border-white/5 w-64 hover:border-[#f30] transition-all group">
                         <div className="w-16 h-16 bg-red-500/10 rounded-full mx-auto mb-6 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">

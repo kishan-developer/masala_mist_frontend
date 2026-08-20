@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronDown, Menu, X, Bell } from "lucide-react";
+import { ChevronDown, Menu, X, Bell, User } from "lucide-react";
 import Link from "next/link";
 
 export default function Header() {
@@ -29,7 +29,7 @@ export default function Header() {
         </Link>
 
         {/* DESKTOP NAV - Hidden on mobile and tablet, visible on laptop/desktop */}
-        <div className="hidden lg:flex items-center  gap-5">
+        <div className="hidden lg:flex items-center gap-4 lg:gap-5">
           <nav className="flex text-base lg:text-lg items-center capitalize space-x-4 lg:space-x-6 text-white font-medium">
             <Link href="/booking" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Our Rooms</Link>
             <Link href="/resturant" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Restaurant</Link>
@@ -38,9 +38,25 @@ export default function Header() {
             <Link href="/contact" className="hover:text-[#b5946a] transition-colors font-serif uppercase hover:border-b-2 hover:border-[#b5946a]">Contact</Link>
           </nav>
 
+          {/* LOGIN & REGISTER BUTTONS */}
+          <a
+            href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/login` : "http://localhost:3000/login"}
+            className="px-3 lg:px-4 py-2 font-serif uppercase border border-[#b5946a] text-[#b5946a] text-xs lg:text-sm rounded-md hover:bg-[#b5946a] hover:text-white transition shadow-md hover:shadow-lg active:scale-95 flex items-center gap-1.5"
+          >
+            <User size={16} />
+            <span>Login</span>
+          </a>
+
+          <a
+            href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/register` : "http://localhost:3000/register"}
+            className="px-3 lg:px-4 py-2 font-serif uppercase border border-[#b5946a] text-[#b5946a] bg-[#b5946a]/10 hover:bg-[#b5946a] hover:text-white text-xs lg:text-sm rounded-md transition shadow-md hover:shadow-lg active:scale-95 flex items-center gap-1.5"
+          >
+            <span>Register</span>
+          </a>
+
           <Link
             href="/booking"
-            className="px-4 lg:px-6 py-2 font-serif uppercase bg-[#b5946a] text-white text-sm lg:text-base rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95"
+            className="px-4 lg:px-6 py-2 font-serif uppercase bg-[#b5946a] text-white text-xs lg:text-sm rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95"
           >
             Book Now
           </Link>
@@ -67,13 +83,34 @@ export default function Header() {
             <Link href="/contact" onClick={() => setOpen(false)} className="py-2 hover:text-[#b5946a] transition-colors font-serif uppercase">Contact</Link>
           </nav>
 
-          <Link
-            href="/booking"
-            onClick={() => setOpen(false)}
-            className="w-full mt-4 px-6 py-3 bg-[#b5946a] font-serif uppercase text-white text-sm rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95 opacity-0 animate-fadeIn"
-          >
-            Book Now
-          </Link>
+          <div className="flex flex-col gap-3 mt-4">
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/login` : "http://localhost:3000/login"}
+                onClick={() => setOpen(false)}
+                className="w-full px-4 py-2.5 border border-[#b5946a] font-serif uppercase text-[#b5946a] text-xs rounded-md hover:bg-[#b5946a] hover:text-white transition flex items-center justify-center gap-1.5 text-center"
+              >
+                <User size={16} />
+                <span>Login</span>
+              </a>
+
+              <a
+                href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/register` : "http://localhost:3000/register"}
+                onClick={() => setOpen(false)}
+                className="w-full px-4 py-2.5 border border-[#b5946a] bg-[#b5946a]/10 font-serif uppercase text-[#b5946a] text-xs rounded-md hover:bg-[#b5946a] hover:text-white transition flex items-center justify-center gap-1.5 text-center"
+              >
+                <span>Register</span>
+              </a>
+            </div>
+
+            <Link
+              href="/booking"
+              onClick={() => setOpen(false)}
+              className="w-full px-6 py-3 bg-[#b5946a] font-serif uppercase text-white text-sm rounded-md hover:bg-[#705c49] transition shadow-md hover:shadow-lg active:scale-95 text-center"
+            >
+              Book Now
+            </Link>
+          </div>
         </div>
       )}
     </header>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ArrowLeft, Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, Mail, Lock, Info } from 'lucide-react';
 
 export default function RewardsLoginPage() {
   const [email, setEmail] = useState('');
@@ -113,6 +113,16 @@ export default function RewardsLoginPage() {
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
+              </div>
+
+              {/* Password Requirement Notice Info */}
+              <div className="mt-2.5 p-3 bg-[#121212] border border-[#c5a059]/30 rounded-lg text-xs text-gray-300">
+                <div className="flex items-center gap-1.5 font-semibold text-[#c5a059] mb-1">
+                  <Info size={14} className="shrink-0" /> Password Requirements Notice:
+                </div>
+                <p className="text-gray-400 leading-relaxed">
+                  Password must be at least <span className="text-white font-medium">8 characters</span> and include <span className="text-[#c5a059] font-medium">1 uppercase letter</span>, <span className="text-[#c5a059] font-medium">1 number</span>, and <span className="text-[#c5a059] font-medium">1 special character</span> (e.g. @, #, $, !).
+                </p>
               </div>
             </div>
 

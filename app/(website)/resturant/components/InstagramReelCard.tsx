@@ -13,6 +13,18 @@ interface InstagramReelCardProps {
     onOpen: (reelUrl: string) => void;
 }
 
+const getInstagramThumbnail = (url: string) => {
+    if (!url) return null;
+    if (url.match(/\.(jpeg|jpg|gif|png|webp)/i)) {
+        return url;
+    }
+    const match = url.match(/(?:reel|p)\/([A-Za-z0-9_-]+)/);
+    if (match && match[1]) {
+        return `https://www.instagram.com/p/${match[1]}/media/?size=l`;
+    }
+    return null;
+};
+
 const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
     reelUrl,
     thumbnail,
@@ -22,6 +34,9 @@ const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
     onOpen
 }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [imageError, setImageError] = useState(false);
+
+    const computedThumbnail = !imageError ? (thumbnail && thumbnail !== reelUrl ? thumbnail : getInstagramThumbnail(reelUrl)) : null;
 
     return (
         <motion.div
@@ -35,12 +50,13 @@ const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
             onClick={() => onOpen(reelUrl)}
         >
             {/* Thumbnail/Video Background */}
-            {thumbnail ? (
+            {computedThumbnail ? (
                 <img
-                    src={thumbnail}
+                    src={computedThumbnail}
                     alt={title || 'Instagram Reel'}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
                     style={{ transform: isHovered ? 'scale(1.03)' : 'scale(1)' }}
+                    onError={() => setImageError(true)}
                 />
             ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-[#0f0f0f] to-[#1a1a1a]">

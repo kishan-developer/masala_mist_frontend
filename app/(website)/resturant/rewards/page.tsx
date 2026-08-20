@@ -26,6 +26,7 @@ interface Coupon {
   minimumBill: string;
   validUntil: string;
   status: 'Available' | 'Pending Approval' | 'Redeemed' | 'Used' | 'Expired';
+  image?: string;
 }
 
 interface ScratchCard {
@@ -36,55 +37,116 @@ interface ScratchCard {
   scratched: boolean;
 }
 
+function formatUserCouponId(studentOrUserId: string = 'MS12345678', couponCode: string): string {
+  const studentIdStr = String(studentOrUserId);
+  const digits = studentIdStr.replace(/\D/g, '');
+  const last4 = digits.length >= 4 ? digits.slice(-4) : (studentIdStr.slice(-4) || '5678');
+  const cleanCode = (couponCode || '').replace(/^RST-?/i, '').replace(/^MS\d{4}-?/i, '').toUpperCase();
+  return `MS${last4}-${cleanCode}`;
+}
+
+const couponImageMap: Record<string, string> = {
+  '82A96': '/Coupons/1.png',
+  '82A97': '/Coupons/2.png',
+  '82A98': '/Coupons/3.png',
+  '82A99': '/Coupons/4.png',
+  '82B00': '/Coupons/5.png',
+  '82B01': '/Coupons/6.png',
+  '82B02': '/Coupons/7.png',
+  '82B03': '/Coupons/8.png',
+  '82B04': '/Coupons/9.png',
+  'MS5678-82A96': '/Coupons/1.png',
+  'MS5678-82A97': '/Coupons/2.png',
+  'MS5678-82A98': '/Coupons/3.png',
+  'MS5678-82A99': '/Coupons/4.png',
+  'MS5678-82B00': '/Coupons/5.png',
+  'MS5678-82B01': '/Coupons/6.png',
+  'MS5678-82B02': '/Coupons/7.png',
+  'MS5678-82B03': '/Coupons/8.png',
+  'MS5678-82B04': '/Coupons/9.png',
+};
+
 const initialCoupons: Coupon[] = [
- 
   {
     id: '6',
-    code: 'RST-82A96',
+    code: 'MS5678-82A96',
     title: 'Veg Momos (4 pcs) + Cocktail Rice',
     minimumBill: '₹149',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/1.png',
   },
   {
     id: '7',
-    code: 'RST-82A97',
+    code: 'MS5678-82A97',
     title: 'Chilli Paneer (4 pcs) + Hakka Noodles',
     minimumBill: '₹149',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/2.png',
   },
   {
     id: '8',
-    code: 'RST-82A98',
+    code: 'MS5678-82A98',
     title: 'Mutton Shami Kebab (2 pcs) + 2 Pc Paratha',
     minimumBill: '₹149',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/3.png',
   },
   {
     id: '9',
-    code: 'RST-82A99',
+    code: 'MS5678-82A99',
     title: 'Chicken Tikka Masala (2 pcs) + 1 Pc Butter Naan',
     minimumBill: '₹149',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/4.png',
   },
   {
     id: '10',
-    code: 'RST-82B00',
+    code: 'MS5678-82B00',
     title: 'Stuffed Kulcha + Chole',
     minimumBill: '₹99',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/5.png',
   },
   {
     id: '11',
-    code: 'RST-82B01',
+    code: 'MS5678-82B01',
     title: 'Veg Manchurian (2 pcs) + Fried Rice',
     minimumBill: '₹99',
     validUntil: '31 Dec 2026',
     status: 'Available',
+    image: '/Coupons/6.png',
+  },
+  {
+    id: '12',
+    code: 'MS5678-82B02',
+    title: 'FLAT 10% ON THE BILL OF ₹1,500/- & ABOVE',
+    minimumBill: '₹1,500',
+    validUntil: '31 Dec 2026',
+    status: 'Available',
+    image: '/Coupons/7.png',
+  },
+  {
+    id: '13',
+    code: 'MS5678-82B03',
+    title: 'FLAT 15% ON THE BILL OF ₹2,500/- & ABOVE',
+    minimumBill: '₹2,500',
+    validUntil: '31 Dec 2026',
+    status: 'Available',
+    image: '/Coupons/8.png',
+  },
+  {
+    id: '14',
+    code: 'MS5678-82B04',
+    title: 'FLAT 30% ON THE BILL OF ₹5,000/- & ABOVE',
+    minimumBill: '₹5,000',
+    validUntil: '31 Dec 2026',
+    status: 'Available',
+    image: '/Coupons/9.png',
   },
 ];
 
@@ -141,8 +203,9 @@ const RewardsPage = () => {
 
         if (couponsData?.data && couponsData.data.length > 0) {
           const mapped: Coupon[] = couponsData.data.map((c: any) => {
-            const codeUpper = (c.code || '').toUpperCase();
-            const liveStatus = redemptionMap.get(codeUpper);
+            const formattedCode = formatUserCouponId('MS12345678', c.code);
+            const cleanCode = (c.code || '').replace(/^RST-?/i, '').replace(/^MS\d{4}-?/i, '').toUpperCase();
+            const liveStatus = redemptionMap.get(formattedCode) || redemptionMap.get(cleanCode) || redemptionMap.get((c.code || '').toUpperCase());
 
             let finalStatus: 'Available' | 'Pending Approval' | 'Redeemed' | 'Used' | 'Expired' = c.status ? 'Available' : 'Expired';
             if (liveStatus === 'Used') {
@@ -155,11 +218,12 @@ const RewardsPage = () => {
 
             return {
               id: c._id || c.id,
-              code: codeUpper,
+              code: formattedCode,
               title: c.title || 'Special Offer',
               minimumBill: c.minimumBill || '₹149',
               validUntil: c.validUntil || '31 Dec 2026',
               status: finalStatus,
+              image: c.image || couponImageMap[formattedCode] || couponImageMap[cleanCode] || '/Coupons/1.png',
             };
           });
           setCoupons(mapped);
@@ -171,7 +235,9 @@ const RewardsPage = () => {
     loadLiveCoupons();
   }, []);
 
-  const filteredCoupons = coupons.filter((c) => c.status === couponTab);
+  const filteredCoupons = coupons
+    .filter((c) => c.status === couponTab)
+    .filter((c) => !c.title?.toLowerCase().includes('stuffed kulcha') && !c.code?.toLowerCase().includes('82b00'));
 
   const handleRedeem = (coupon: Coupon) => {
     const query = new URLSearchParams({
@@ -182,6 +248,8 @@ const RewardsPage = () => {
     }).toString();
     router.push(`/resturant/rewards/redeem?${query}`);
   };
+
+  const [successModalCoupon, setSuccessModalCoupon] = useState<Coupon | null>(null);
 
   const confirmRedeem = async () => {
     if (!confirmCoupon) return;
@@ -197,12 +265,12 @@ const RewardsPage = () => {
       });
       const data = await res.json();
       if (res.ok && data.success) {
+        const redeemedCoupon: Coupon = { ...confirmCoupon, status: 'Redeemed' };
         setCoupons((prev) =>
-          prev.map((c) => (c.id === confirmCoupon.id ? { ...c, status: 'Pending Approval' } : c))
+          prev.map((c) => (c.id === confirmCoupon.id ? redeemedCoupon : c))
         );
-        setQrCoupon({ ...confirmCoupon, status: 'Pending Approval' });
+        setSuccessModalCoupon(redeemedCoupon);
         setConfirmCoupon(null);
-        toast.success(`Redemption request for ${confirmCoupon.code} submitted! Awaiting Admin approval.`);
       } else {
         toast.error(data.message || 'You have already used this coupon code. Limit: 1 use per user.');
       }
@@ -289,7 +357,7 @@ const RewardsPage = () => {
               ))}
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredCoupons.length === 0 ? (
                 <p className="col-span-full text-center text-gray-500 py-12">
                   No {couponTab.toLowerCase()} coupons.
@@ -304,15 +372,19 @@ const RewardsPage = () => {
                         : 'bg-gradient-to-br from-[#161616] to-black border border-white/10 shadow-lg shadow-black/40 hover:border-[#c5a059]/60'
                     }`}
                   >
+                    <div className="relative h-44 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl bg-black">
+                      <img
+                        src={coupon.image || couponImageMap[coupon.code] || '/Coupons/1.png'}
+                        alt={coupon.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#161616] via-black/40 to-transparent" />
+                      <span className="absolute top-3 left-3 font-mono font-bold text-xs px-3 py-1 rounded-lg border text-[#c5a059] bg-black/80 backdrop-blur-md border-[#c5a059]/40 shadow-md">
+                        {coupon.code}
+                      </span>
+                    </div>
+
                     <div className="text-center mb-6">
-                      <div className="relative mx-auto w-20 h-20 mb-4">
-                        <img
-                          src="/logo.png"
-                          alt="Sands of Kashi"
-                          className="rounded-lg p-2 bg-black shadow-md shadow-[#c5a059]/20"
-                        />
-                        
-                      </div>
                       <h3 className="text-lg font-serif text-[#c5a059]">{coupon.title}</h3>
                       <p className="text-gray-400 text-sm mt-1">Restaurant Reward</p>
                       <div className="h-px w-16 bg-[#c5a059] mx-auto mt-4" />
@@ -523,6 +595,86 @@ const RewardsPage = () => {
                 >
                   Redeem Now
                 </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Success Redemption Modal */}
+        {successModalCoupon && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-300"
+            onClick={() => setSuccessModalCoupon(null)}
+          >
+            <div
+              className="bg-[#141414] border border-[#c5a059] rounded-2xl max-w-md w-full overflow-hidden shadow-2xl shadow-[#c5a059]/20 relative animate-in zoom-in-95 duration-300"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Top Close Button */}
+              <button
+                onClick={() => setSuccessModalCoupon(null)}
+                className="absolute top-3 right-3 text-white bg-black/70 hover:bg-black p-2 rounded-full backdrop-blur-md transition-colors z-20"
+                aria-label="Close modal"
+              >
+                <X size={18} />
+              </button>
+
+              {/* Video at Top */}
+              <div className="relative w-full h-44 sm:h-48 bg-black overflow-hidden">
+                <video
+                  src="https://res.cloudinary.com/drmpv5vne/video/upload/v1787154024/logo_animation_cm0ggf.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-black/30" />
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6 text-center space-y-4">
+                {/* Congratulation Message */}
+                <div className="space-y-1">
+                  <h3 className="text-xl sm:text-2xl font-serif text-[#c5a059] font-bold">
+                    Congratulations!
+                  </h3>
+                  <p className="text-white font-medium text-sm sm:text-base">
+                    Your coupon has been successfully redeemed.
+                  </p>
+                </div>
+
+                {/* Short Redemption Instructions */}
+                <p className="text-gray-300 text-xs sm:text-sm bg-white/5 p-3 rounded-xl border border-white/10">
+                  Visit our restaurant, show this coupon, and enjoy your exclusive offer.
+                </p>
+
+                {/* Coupon Code & Offer Details */}
+                <div className="bg-[#0a0a0a] border border-[#c5a059]/30 rounded-xl p-4 space-y-2">
+                  <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold block">
+                    Coupon Code
+                  </span>
+                  <p className="text-[#c5a059] font-mono font-bold tracking-widest text-xl sm:text-2xl">
+                    {successModalCoupon.code}
+                  </p>
+                  <div className="h-px bg-[#c5a059]/20 w-16 mx-auto my-2" />
+                  <p className="text-white font-serif text-sm sm:text-base font-semibold">
+                    {successModalCoupon.title}
+                  </p>
+                  <p className="text-gray-400 text-xs">
+                    Min. Bill: <span className="text-white font-medium">{successModalCoupon.minimumBill}</span> | Valid Until: <span className="text-white font-medium">{successModalCoupon.validUntil}</span>
+                  </p>
+                </div>
+
+                {/* CTA Button */}
+                <div className="pt-2">
+                  <button
+                    onClick={() => setSuccessModalCoupon(null)}
+                    className="w-full bg-[#c5a059] text-black py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs sm:text-sm hover:bg-white transition-all shadow-lg shadow-[#c5a059]/20"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>

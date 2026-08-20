@@ -10,7 +10,7 @@ function RedeemContent() {
   const searchParams = useSearchParams();
   const [redeemed, setRedeemed] = useState(false);
 
-  const code = searchParams.get('code') || 'RST-82A92';
+  const code = searchParams.get('code') || 'MS5678-82A97';
   const title = searchParams.get('title') || '₹100 OFF';
   const minimumBill = searchParams.get('minimumBill') || '₹999';
   const validUntil = searchParams.get('validUntil') || '10 Nov 2026';

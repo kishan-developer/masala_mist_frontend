@@ -19,7 +19,7 @@ const About = () => {
                 </div>
                 <div>
                     <span className="text-[#c5a059] text-sm uppercase tracking-[0.3em] font-bold block mb-4">Our Heritage</span>
-                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-5">Bringing Real Taste Back to Your Plate</h2>
+                    <h2 className="text-2xl md:text-5xl font-serif text-white mb-5">Bringing Real Taste Back to Your Plate</h2>
                     <p className="text-gray-400 leading-relaxed">
                         At Masala Mist, we believe great food starts with honest ingredients and unforgettable flavours.
                         Our journey began with a simple idea: bring real, authentic, fresh spices and seasonings straight from trusted farms to your kitchen.
@@ -33,22 +33,22 @@ const About = () => {
                         We create experiences that bring families together, celebrate tradition, and deliver joy in every meal.
                     </p>
 
-                    <div className="grid grid-cols-2 gap-6 mb-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2  gap-2 md:gap-6 mb-10">
                         <div className="flex items-center gap-3">
                             <CheckCircle className="text-[#c5a059]" size={20} />
-                            <span className="text-md font-medium">Pure and authentic ingredients</span>
+                            <span className="text-sm md:text-md font-medium">Pure and authentic ingredients</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <CheckCircle className="text-[#c5a059]" size={20} />
-                            <span className="text-md font-medium">Consistent flavour in every blend</span>
+                            <span className="text-sm md:text-md font-medium">Consistent flavour in every blend</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <CheckCircle className="text-[#c5a059]" size={20} />
-                            <span className="text-md font-medium">Freshness you can smell</span>
+                            <span className="text-sm md:text-md font-medium">Freshness you can smell</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <CheckCircle className="text-[#c5a059]" size={20} />
-                            <span className="text-md font-medium">Quality you can trust</span>
+                            <span className="text-sm md:text-md font-medium">Quality you can trust</span>
                         </div>
                     </div>
                 </div>

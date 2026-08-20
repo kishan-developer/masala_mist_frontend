@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ArrowLeft, User, Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
+import { ArrowLeft, User, Mail, Lock, Eye, EyeOff, CheckCircle, Info } from 'lucide-react';
 
 export default function RewardsRegisterPage() {
   const router = useRouter();
@@ -246,9 +246,38 @@ export default function RewardsRegisterPage() {
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
-                  Min 8 chars, upper &amp; lower case, number and special character.
-                </p>
+                {/* Password Requirement Notice Info Box */}
+                <div className="mt-2.5 p-3.5 bg-[#121212] border border-[#c5a059]/30 rounded-lg text-xs text-gray-300 space-y-1.5">
+                  <div className="flex items-center gap-1.5 font-semibold text-[#c5a059]">
+                    <Info size={14} className="shrink-0 text-[#c5a059]" /> Password Requirements Notice:
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 pt-1 text-[11px]">
+                    <div className={`flex items-center gap-1.5 ${password.length >= 8 ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
+                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${password.length >= 8 ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
+                        {password.length >= 8 ? '✓' : '•'}
+                      </span>
+                      At least 8 characters
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${/[A-Z]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
+                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[A-Z]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
+                        {/[A-Z]/.test(password) ? '✓' : '•'}
+                      </span>
+                      1 Uppercase letter (A-Z)
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${/[0-9]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
+                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[0-9]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
+                        {/[0-9]/.test(password) ? '✓' : '•'}
+                      </span>
+                      1 Number (0-9)
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
+                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
+                        {/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? '✓' : '•'}
+                      </span>
+                      1 Special char (@, #, $, !)
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <button
