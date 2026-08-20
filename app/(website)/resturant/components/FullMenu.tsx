@@ -22,7 +22,7 @@ const FullMenu: React.FC<FullMenuProps> = ({ menuCategories, menuData }) => {
         <section id="menu" className="py-10 md:py-24 px-2 md:px-6 bg-[#0f0f0f]">
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">Discover Our Full Menu</h2>
+                    <h2 className="text-2xl md:text-4xl font-serif text-white mb-4">Discover Our Full Menu</h2>
                     <div className="flex flex-wrap justify-center gap-2 md:gap-2 mt-2 md:mt-8">
                         {menuCategories.map(cat => (
                             <button

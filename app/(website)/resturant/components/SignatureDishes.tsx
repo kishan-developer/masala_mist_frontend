@@ -42,7 +42,7 @@ const SignatureDishes: React.FC<SignatureDishesProps> = ({ vegItems }) => {
                             </div>
 
                             <a href="#reserve" className="mt-2 block w-full text-center py-2 border border-white/10 rounded-lg text-xs uppercase tracking-widest font-bold hover:bg-[#c5a059] hover:text-black transition-all">
-                                Order From Restaurant
+                                Book A Table
                             </a>
                         </div>
                     </div>

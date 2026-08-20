@@ -4,11 +4,11 @@ import { Star, Clock, Utensils, Users, Calendar, Award } from 'lucide-react';
 const WhyChooseUs = () => {
     const features = [
         { icon: <Star />, title: "Premium Quality", desc: "Only the finest A-grade ingredients sourced globally." },
-        { icon: <Clock />, title: "Fast Delivery", desc: "Hot meals delivered to your doorstep within 30 minutes." },
+
         { icon: <Utensils />, title: "Hygienic Kitchen", desc: "Open kitchen concept with 5-star safety certifications." },
         { icon: <Users />, title: "Family-Friendly", desc: "Dedicated spaces and menus for children and large families." },
         { icon: <Calendar />, title: "Easy Reservations", desc: "Book your favorite table in just three clicks online." },
-        { icon: <Award />, title: "Award Winning", desc: "Consistently rated as the city's top dining destination." }
+
     ];
 
     return (

@@ -245,7 +245,15 @@ const Page = () => {
         'CHINESE VEG'
     ];
 
+
+
     const vegItems = [
+        {
+            name: 'Mutton Rara',
+            price: '₹595',
+            img: 'https://res.cloudinary.com/drmpv5vne/image/upload/v1783768771/Motton_Rara_ob1uje.avif',
+            desc: 'Succulent mutton pieces slow-cooked in a rich, spicy, and flavorful gravy with a blend of aromatic spices, delivering a hearty and indulgent dish.'
+        },
         {
             name: 'Chicken Hyderabadi',
             price: '₹425',
@@ -258,12 +266,7 @@ const Page = () => {
             img: 'https://res.cloudinary.com/drmpv5vne/image/upload/v1783768774/Paneer_hydrabady_d60max.avif',
             desc: 'Soft paneer cubes cooked in a rich, spicy, and aromatic Hyderabadi-style gravy, blending traditional spices for a bold and flavorful experience.'
         },
-        {
-            name: 'Mutton Rara',
-            price: '₹595',
-            img: 'https://res.cloudinary.com/drmpv5vne/image/upload/v1783768771/Motton_Rara_ob1uje.avif',
-            desc: 'Succulent mutton pieces slow-cooked in a rich, spicy, and flavorful gravy with a blend of aromatic spices, delivering a hearty and indulgent dish.'
-        },
+
         {
             name: 'Paneer Butter Masala',
             price: '₹425',
@@ -436,7 +439,7 @@ const Page = () => {
             <SignatureDishes vegItems={vegItems} />
             <FullMenu menuCategories={menuCategories} menuData={menuData} />
             {/* <InstagramReels /> */}
-            <InstagramReelsSection />
+            {/* <InstagramReelsSection /> */}
             <WhyChooseUs />
             <CustomerReviews />
             <Reservation

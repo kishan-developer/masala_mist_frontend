@@ -14,7 +14,7 @@ const OnlineOrdering = () => {
                         <div className="w-16 h-16 bg-[#c5a059]/10 rounded-full mx-auto mb-6 flex items-center justify-center text-[#c5a059] group-hover:scale-110 transition-transform">
                             <ShoppingBag />
                         </div>
-                        <h4 className="text-white font-bold mb-4">Direct Order</h4>
+                        <h4 className="text-white font-bold mb-4">Coupons / Rewords</h4>
                         <a
                             href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/register` : "https://dashboard.masalamist.in/register"}
                             target="_blank"

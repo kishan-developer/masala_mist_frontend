@@ -9,7 +9,7 @@ const SpecialOffers = () => {
                     <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                         <div>
                             <span className="bg-[#c5a059] text-black text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4 inline-block">Exclusive Offer</span>
-                            <h2 className="text-4xl font-serif text-white mb-4">Luxury Dining At <span className="text-[#c5a059]">20% Off</span></h2>
+                            <h2 className="text-2xl md:text-4xl font-serif text-white mb-4">Luxury Dining At <span className="text-[#c5a059]">20% Off</span></h2>
                             <p className="text-gray-400 mb-8">Valid for first-time website bookings this month. Experience our Signature Tasting Menu with an exclusive discount.</p>
                             <div className="flex gap-4">
                                 <a
@@ -26,7 +26,7 @@ const SpecialOffers = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        {/* <div className="grid grid-cols-2 gap-4">
                             <div className="bg-white/5 p-2 md:p-6 rounded-2xl border border-white/5 text-center">
                                 <p className="text-md md:text-2xl font-serif text-[#c5a059] font-bold">Happy Hours</p>
                                 <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">4 PM - 7 PM DAILY</p>
@@ -35,7 +35,7 @@ const SpecialOffers = () => {
                                 <p className="text-md md:text-2xl font-serif text-[#c5a059] font-bold">Family Deal</p>
                                 <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Free Kids Dessert</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

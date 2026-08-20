@@ -28,16 +28,21 @@ const Reservation: React.FC<ReservationProps> = ({
             <div className="max-w-4xl mx-auto bg-black border border-[#c5a059]/30 rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
                 <div className="w-full md:w-1/3 bg-[#c5a059] py-5 px-4 md:p-10 flex flex-col justify-between text-white">
                     <div>
-                        <h2 className="text-2xl text-3xl font-serif font-bold mb-4">Book A Table</h2>
+                        <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">Book A Table</h2>
                         <p className="text-md font-medium mb-8">Secure your experience in advance. We suggest booking 48 hours early for weekends.</p>
                     </div>
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
                             <Phone size={18} /> <span className="text-md font-bold">+91 75228 01563</span>
                         </div>
-                        <button className="flex items-center gap-2 bg-black text-[#c5a059] px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest w-full justify-center">
+                        <a
+                            href="https://wa.me/917522801563?text=Hi%2C%20I%20would%20like%20to%20book%20a%20table%20at%20Masala%20Mist"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-black text-[#c5a059] px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest w-full justify-center hover:bg-white/10 transition-colors"
+                        >
                             <MessageCircle size={18} /> WhatsApp Booking
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div className="w-full md:w-2/3 p-5 md:p-10 text-white">
