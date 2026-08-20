@@ -424,7 +424,7 @@ const Page = () => {
             )}
 
             <a
-                href={process.env.NEXT_PUBLIC_DASHBOARD_URL ? `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/login` : "http://localhost:3000/login"}
+                href={"https://dashboard.masalamist.in/login"}
                 target='_blank'
                 onClick={() => setMobileMenuOpen(false)}
                 className="absolute top-8 right-8 z-50 w-fit px-5 py-2.5 border border-[#b5946a] bg-[#b5946a] font-serif uppercase text-black font-bold text-xs rounded-md hover:bg-[#a38255] hover:text-white transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 text-center"
