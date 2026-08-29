@@ -8,7 +8,7 @@ const About = () => {
                 <div className="relative">
                     <div className="border-2 border-[#c5a059] absolute -top-4 -left-4 w-full h-full z-0 opacity-20 rounded-xl"></div>
                     <img
-                        src="https://res.cloudinary.com/drmpv5vne/image/upload/v1783768649/DSC_0366_shctsq.jpg"
+                        src="https://res.cloudinary.com/drmpv5vne/image/upload/v1787747269/MasalaMist_rzrdaq.png"
                         alt="Our Story"
                         className="relative z-10 rounded-xl shadow-2xl hover:grayscale-0 transition-all duration-700"
                     />

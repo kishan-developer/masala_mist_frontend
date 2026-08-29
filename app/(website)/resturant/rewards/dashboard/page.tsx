@@ -23,6 +23,7 @@ import {
   ToggleRight,
   Play,
   CheckCircle2,
+  Info,
 } from 'lucide-react';
 
 interface UserData {
@@ -57,8 +58,8 @@ interface CouponUsage {
 const emptyForm = {
   code: '',
   discount: '',
-  maxAge: '',
-  maxUsageLimit: '',
+  maxAge: '720',
+  maxUsageLimit: '500',
   status: true,
 };
 
@@ -196,6 +197,12 @@ export default function RestaurantDashboardPage() {
     e.preventDefault();
     if (!form.code || !form.discount || !form.maxAge || !form.maxUsageLimit) {
       toast.warn('Please fill all required fields.');
+      return;
+    }
+
+    const limitNum = Number(form.maxUsageLimit);
+    if (isNaN(limitNum) || limitNum < 500 || limitNum > 5000) {
+      toast.warn('Coupon max usage limit must be between 500 and 5000.');
       return;
     }
     setSubmitting(true);
@@ -658,19 +665,33 @@ export default function RestaurantDashboardPage() {
             >
               <X size={20} />
             </button>
-            <h3 className="text-xl md:text-2xl font-serif text-[#c5a059] mb-6">
-              {editing ? 'Edit Coupon' : 'Create Coupon'}
+            <h3 className="text-xl md:text-2xl font-serif text-[#c5a059] mb-2">
+              {editing ? 'Edit Promo Coupon' : 'Create Promo Coupon'}
             </h3>
+
+            {editing && (
+              <div className="mb-5 mt-2 p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs flex items-center gap-2">
+                <Info size={16} className="shrink-0 text-amber-400" />
+                <span>Notice: When editing an existing promo coupon, only the <strong>Max Usage Limit</strong> can be updated.</span>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm text-gray-300 mb-2">Coupon Code</label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm text-gray-300">Coupon Code</label>
+                  {editing && <span className="text-[10px] text-gray-500 font-mono">Locked</span>}
+                </div>
                 <div className="relative">
                   <Ticket className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
                   <input
                     type="text"
                     value={form.code}
                     onChange={(e) => setForm({ ...form, code: e.target.value })}
-                    className="w-full pl-10 pr-4 py-2 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059]"
+                    disabled={!!editing}
+                    className={`w-full pl-10 pr-4 py-2 border rounded-lg text-white uppercase focus:outline-none ${
+                      editing ? 'bg-white/5 border-white/5 opacity-50 cursor-not-allowed text-gray-400' : 'bg-black border-white/10 focus:border-[#c5a059]'
+                    }`}
                     placeholder="SUMMER20"
                     required
                   />
@@ -678,7 +699,10 @@ export default function RestaurantDashboardPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Discount (%)</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm text-gray-300">Discount (%)</label>
+                    {editing && <span className="text-[10px] text-gray-500 font-mono">Locked</span>}
+                  </div>
                   <div className="relative">
                     <Percent className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
                     <input
@@ -687,14 +711,20 @@ export default function RestaurantDashboardPage() {
                       max={100}
                       value={form.discount}
                       onChange={(e) => setForm({ ...form, discount: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059]"
+                      disabled={!!editing}
+                      className={`w-full pl-10 pr-4 py-2 border rounded-lg text-white focus:outline-none ${
+                        editing ? 'bg-white/5 border-white/5 opacity-50 cursor-not-allowed text-gray-400' : 'bg-black border-white/10 focus:border-[#c5a059]'
+                      }`}
                       placeholder="20"
                       required
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Max Age (hrs)</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm text-gray-300">Max Age (hrs)</label>
+                    {editing && <span className="text-[10px] text-gray-500 font-mono">Locked</span>}
+                  </div>
                   <div className="relative">
                     <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
                     <input
@@ -702,7 +732,10 @@ export default function RestaurantDashboardPage() {
                       min={1}
                       value={form.maxAge}
                       onChange={(e) => setForm({ ...form, maxAge: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059]"
+                      disabled={!!editing}
+                      className={`w-full pl-10 pr-4 py-2 border rounded-lg text-white focus:outline-none ${
+                        editing ? 'bg-white/5 border-white/5 opacity-50 cursor-not-allowed text-gray-400' : 'bg-black border-white/10 focus:border-[#c5a059]'
+                      }`}
                       placeholder="72"
                       required
                     />
@@ -711,22 +744,28 @@ export default function RestaurantDashboardPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Max Usage Limit</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-semibold text-[#c5a059]">Max Usage Limit</label>
+                    {editing && <span className="text-[10px] bg-[#c5a059]/20 text-[#c5a059] px-1.5 py-0.5 rounded font-mono font-bold">Editable</span>}
+                  </div>
                   <div className="relative">
-                    <Hash className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                    <Hash className="absolute left-3 top-1/2 -translate-y-1/2 text-[#c5a059]" size={18} />
                     <input
                       type="number"
-                      min={1}
+                      min={500}
+                      max={5000}
                       value={form.maxUsageLimit}
                       onChange={(e) => setForm({ ...form, maxUsageLimit: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059]"
-                      placeholder="100"
+                      placeholder="500"
+                      className="w-full pl-10 pr-4 py-2 bg-black border-2 border-[#c5a059] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#c5a059]/50 font-bold"
                       required
+                      autoFocus={!!editing}
                     />
+                    <p className="text-[10px] text-[#c5a059] mt-1 font-mono">Limit must be between 500 and 5000</p>
                   </div>
                 </div>
                 <div className="flex items-end">
-                  <label className="flex items-center gap-3 cursor-pointer">
+                  <label className={`flex items-center gap-3 ${editing ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
                     <ToggleRight
                       size={22}
                       className={form.status ? 'text-green-500' : 'text-gray-500'}
@@ -735,10 +774,11 @@ export default function RestaurantDashboardPage() {
                       type="checkbox"
                       checked={form.status}
                       onChange={(e) => setForm({ ...form, status: e.target.checked })}
+                      disabled={!!editing}
                       className="hidden"
                     />
                     <span className="text-sm text-gray-300 select-none">
-                      {form.status ? 'Active' : 'Inactive'}
+                      {form.status ? 'Active' : 'Inactive'} {editing && '(Locked)'}
                     </span>
                   </label>
                 </div>
@@ -746,9 +786,9 @@ export default function RestaurantDashboardPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-[#c5a059] text-black py-3 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-white transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full bg-[#c5a059] text-black py-3 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-white transition-all disabled:opacity-50 flex items-center justify-center gap-2 mt-4"
               >
-                <Save size={18} /> {submitting ? 'Saving...' : editing ? 'Update Coupon' : 'Create Coupon'}
+                <Save size={18} /> {submitting ? 'Saving...' : editing ? 'Update Usage Limit' : 'Create Coupon'}
               </button>
             </form>
           </div>

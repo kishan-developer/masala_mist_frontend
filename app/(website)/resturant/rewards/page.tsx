@@ -37,11 +37,10 @@ interface ScratchCard {
   scratched: boolean;
 }
 
-function formatUserCouponId(studentOrUserId: string = 'MS12345678', couponCode: string): string {
-  const studentIdStr = String(studentOrUserId);
-  const digits = studentIdStr.replace(/\D/g, '');
-  const last4 = digits.length >= 4 ? digits.slice(-4) : (studentIdStr.slice(-4) || '5678');
-  const cleanCode = (couponCode || '').replace(/^RST-?/i, '').replace(/^MS\d{4}-?/i, '').toUpperCase();
+function formatUserCouponId(studentOrUserId: string = '', couponCode: string): string {
+  const userIdStr = String(studentOrUserId || '').trim();
+  const last4 = userIdStr.length >= 4 ? userIdStr.slice(-4).toUpperCase() : (userIdStr ? userIdStr.padStart(4, '0').toUpperCase() : '5678');
+  const cleanCode = (couponCode || '').replace(/^RST-?/i, '').replace(/^MS[A-Z0-9]*-?/i, '').replace(/^MS-?/i, '').toUpperCase();
   return `MS${last4}-${cleanCode}`;
 }
 
@@ -55,20 +54,11 @@ const couponImageMap: Record<string, string> = {
   '82B02': '/Coupons/7.png',
   '82B03': '/Coupons/8.png',
   '82B04': '/Coupons/9.png',
-  'MS5678-82A96': '/Coupons/1.png',
-  'MS5678-82A97': '/Coupons/2.png',
-  'MS5678-82A98': '/Coupons/3.png',
-  'MS5678-82A99': '/Coupons/4.png',
-  'MS5678-82B00': '/Coupons/5.png',
-  'MS5678-82B01': '/Coupons/6.png',
-  'MS5678-82B02': '/Coupons/7.png',
-  'MS5678-82B03': '/Coupons/8.png',
-  'MS5678-82B04': '/Coupons/9.png',
 };
 
 const initialCoupons: Coupon[] = [
   {
-    id: '6',
+    id: '1',
     code: 'MS5678-82A96',
     title: 'Veg Momos (4 pcs) + Cocktail Rice',
     minimumBill: '₹149',
@@ -77,7 +67,7 @@ const initialCoupons: Coupon[] = [
     image: '/Coupons/1.png',
   },
   {
-    id: '7',
+    id: '2',
     code: 'MS5678-82A97',
     title: 'Chilli Paneer (4 pcs) + Hakka Noodles',
     minimumBill: '₹149',
@@ -86,7 +76,7 @@ const initialCoupons: Coupon[] = [
     image: '/Coupons/2.png',
   },
   {
-    id: '8',
+    id: '3',
     code: 'MS5678-82A98',
     title: 'Mutton Shami Kebab (2 pcs) + 2 Pc Paratha',
     minimumBill: '₹149',
@@ -95,7 +85,7 @@ const initialCoupons: Coupon[] = [
     image: '/Coupons/3.png',
   },
   {
-    id: '9',
+    id: '4',
     code: 'MS5678-82A99',
     title: 'Chicken Tikka Masala (2 pcs) + 1 Pc Butter Naan',
     minimumBill: '₹149',
@@ -104,7 +94,7 @@ const initialCoupons: Coupon[] = [
     image: '/Coupons/4.png',
   },
   {
-    id: '10',
+    id: '5',
     code: 'MS5678-82B00',
     title: 'Stuffed Kulcha + Chole',
     minimumBill: '₹99',
@@ -113,7 +103,7 @@ const initialCoupons: Coupon[] = [
     image: '/Coupons/5.png',
   },
   {
-    id: '11',
+    id: '6',
     code: 'MS5678-82B01',
     title: 'Veg Manchurian (2 pcs) + Fried Rice',
     minimumBill: '₹99',
@@ -186,13 +176,18 @@ const RewardsPage = () => {
   React.useEffect(() => {
     async function loadLiveCoupons() {
       try {
-        const [couponsRes, redemptionsRes] = await Promise.all([
-          fetch('http://localhost:2000/api/v1/restaurant/coupons').catch(() => null),
-          fetch('http://localhost:2000/api/v1/restaurant/my-redemptions').catch(() => null),
+        const [couponsRes, redemptionsRes, userRes] = await Promise.all([
+          fetch('http://localhost:2000/api/v1/restaurant/coupons', { credentials: 'include' }).catch(() => null),
+          fetch('http://localhost:2000/api/v1/restaurant/my-redemptions', { credentials: 'include' }).catch(() => null),
+          fetch('http://localhost:2000/api/v1/auth/user', { credentials: 'include' }).catch(() => null),
         ]);
 
         const couponsData = couponsRes && couponsRes.ok ? await couponsRes.json() : null;
         const redemptionsData = redemptionsRes && redemptionsRes.ok ? await redemptionsRes.json() : null;
+        const userData = userRes && userRes.ok ? await userRes.json() : null;
+
+        const currentUser = userData?.data;
+        const currentUserId = currentUser?._id || currentUser?.studentId || '';
 
         const redemptionMap = new Map<string, string>();
         if (redemptionsData?.data) {
@@ -203,8 +198,8 @@ const RewardsPage = () => {
 
         if (couponsData?.data && couponsData.data.length > 0) {
           const mapped: Coupon[] = couponsData.data.map((c: any) => {
-            const formattedCode = formatUserCouponId('MS12345678', c.code);
-            const cleanCode = (c.code || '').replace(/^RST-?/i, '').replace(/^MS\d{4}-?/i, '').toUpperCase();
+            const formattedCode = formatUserCouponId(currentUserId, c.code);
+            const cleanCode = (c.code || '').replace(/^RST-?/i, '').replace(/^MS[A-Z0-9]*-?/i, '').toUpperCase();
             const liveStatus = redemptionMap.get(formattedCode) || redemptionMap.get(cleanCode) || redemptionMap.get((c.code || '').toUpperCase());
 
             let finalStatus: 'Available' | 'Pending Approval' | 'Redeemed' | 'Used' | 'Expired' = c.status ? 'Available' : 'Expired';

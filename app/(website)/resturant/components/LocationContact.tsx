@@ -22,7 +22,7 @@ const LocationContact: React.FC<LocationContactProps> = ({
     return (
         <section id="location-contact" className="py-24 px-6">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-                <div className="rounded-2xl overflow-hidden h-[500px] border border-white/10 transition-all duration-1000">
+                <div className="rounded-2xl overflow-hidden h-[500px]">
                     <div className="w-full h-full flex items-center justify-center relative">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5052.953366837553!2d82.9914422!3d25.318679099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2d4123c9a143%3A0xbd38b03cba9fdde4!2sMasala%20Mist!5e1!3m2!1sen!2sin!4v1787160188000!5m2!1sen!2sin"

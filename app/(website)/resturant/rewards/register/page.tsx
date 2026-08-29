@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ArrowLeft, User, Mail, Lock, Eye, EyeOff, CheckCircle, Info } from 'lucide-react';
+import { ArrowLeft, User, Mail, Lock, Eye, EyeOff, CheckCircle, Info, AlertCircle } from 'lucide-react';
 
 export default function RewardsRegisterPage() {
   const router = useRouter();
@@ -20,6 +20,11 @@ export default function RewardsRegisterPage() {
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(0);
 
+  const [fullNameError, setFullNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   useEffect(() => {
     if (countdown <= 0) return;
     const id = setInterval(() => setCountdown((c) => c - 1), 1000);
@@ -27,32 +32,36 @@ export default function RewardsRegisterPage() {
   }, [countdown]);
 
   const validatePassword = (value: string) => {
-    const checks = [
-      value.length >= 8,
-      /[A-Z]/.test(value),
-      /[a-z]/.test(value),
-      /[0-9]/.test(value),
-      /[!@#$%^&*(),.?":{}|<>]/.test(value),
-    ];
-    return checks.filter(Boolean).length === 5;
+    return value.length >= 6 && value.length <= 11;
   };
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFullNameError('');
+    setEmailError('');
+    setPhoneError('');
+    setPasswordError('');
+
+    let hasErr = false;
     if (!fullName || fullName.trim().length < 2) {
-      toast.warn('Please enter a valid full name.');
-      return;
+      setFullNameError('Please enter a valid full name (min 2 characters).');
+      hasErr = true;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast.warn('Please enter a valid email.');
-      return;
+      setEmailError('Please enter a valid email address.');
+      hasErr = true;
     }
     if (!/^\d{10}$/.test(phone) || phone.startsWith('0')) {
-      toast.warn('Phone must be 10 digits and cannot start with 0.');
-      return;
+      setPhoneError('Phone must be 10 digits and cannot start with 0.');
+      hasErr = true;
     }
     if (!validatePassword(password)) {
-      toast.warn('Password must be 8+ chars, with upper, lower, number and special character.');
+      setPasswordError('Password must be 6 to 11 characters long.');
+      hasErr = true;
+    }
+
+    if (hasErr) {
+      toast.warn('Please fix the errors in the form.');
       return;
     }
 
@@ -70,7 +79,16 @@ export default function RewardsRegisterPage() {
         setStep('otp');
         setCountdown(60);
       } else {
-        toast.error(data.message || 'Failed to send OTP.');
+        const msg = data.message || 'Failed to send OTP.';
+        const lower = msg.toLowerCase();
+        if (lower.includes('email') || lower.includes('already exists') || lower.includes('already registered')) {
+          setEmailError(msg);
+        } else if (lower.includes('phone')) {
+          setPhoneError(msg);
+        } else {
+          setEmailError(msg);
+        }
+        toast.error(msg);
       }
     } catch (error) {
       toast.error('Network error. Please try again.');
@@ -102,10 +120,19 @@ export default function RewardsRegisterPage() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Account created! Redirecting to login...');
-        setTimeout(() => router.push('/resturant/rewards/login'), 2000);
+        toast.success('Account created successfully! Redirecting to dashboard...');
+        setTimeout(() => router.push('/resturant/rewards/dashboard'), 1500);
       } else {
-        toast.error(data.message || 'Registration failed.');
+        const msg = data.message || 'Registration failed.';
+        const lower = msg.toLowerCase();
+        if (lower.includes('email') || lower.includes('already exists') || lower.includes('already registered')) {
+          setEmailError(msg);
+          setStep('form');
+        } else if (lower.includes('phone')) {
+          setPhoneError(msg);
+          setStep('form');
+        }
+        toast.error(msg);
       }
     } catch (error) {
       toast.error('Network error. Please try again.');
@@ -182,31 +209,51 @@ export default function RewardsRegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <User className={`absolute left-3 top-1/2 -translate-y-1/2 ${fullNameError ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input
                     type="text"
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]"
+                    onChange={(e) => {
+                      setFullName(e.target.value);
+                      if (fullNameError) setFullNameError('');
+                    }}
+                    className={`w-full pl-10 pr-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all ${
+                      fullNameError ? 'border-red-500 ring-1 ring-red-500' : 'border-white/10 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]'
+                    }`}
                     placeholder="John Doe"
                     required
                   />
                 </div>
+                {fullNameError && (
+                  <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1.5 font-medium">
+                    <AlertCircle size={14} className="shrink-0 text-red-400" /> {fullNameError}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 ${emailError ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (emailError) setEmailError('');
+                    }}
+                    className={`w-full pl-10 pr-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all ${
+                      emailError ? 'border-red-500 ring-1 ring-red-500' : 'border-white/10 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]'
+                    }`}
                     placeholder="you@example.com"
                     required
                   />
                 </div>
+                {emailError && (
+                  <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1.5 font-medium">
+                    <AlertCircle size={14} className="shrink-0 text-red-400" /> {emailError}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -218,23 +265,38 @@ export default function RewardsRegisterPage() {
                   <input
                     type="tel"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                    className="w-full pl-4 pr-4 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]"
+                    onChange={(e) => {
+                      setPhone(e.target.value.replace(/\D/g, '').slice(0, 10));
+                      if (phoneError) setPhoneError('');
+                    }}
+                    className={`w-full pl-4 pr-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all ${
+                      phoneError ? 'border-red-500 ring-1 ring-red-500' : 'border-white/10 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]'
+                    }`}
                     placeholder="9876543210"
                     required
                   />
                 </div>
+                {phoneError && (
+                  <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1.5 font-medium">
+                    <AlertCircle size={14} className="shrink-0 text-red-400" /> {phoneError}
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Lock className={`absolute left-3 top-1/2 -translate-y-1/2 ${passwordError ? 'text-red-400' : 'text-gray-400'}`} size={18} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-12 py-3 bg-black border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (passwordError) setPasswordError('');
+                    }}
+                    className={`w-full pl-10 pr-12 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none transition-all ${
+                      passwordError ? 'border-red-500 ring-1 ring-red-500' : 'border-white/10 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]'
+                    }`}
                     placeholder="••••••••"
                     required
                   />
@@ -246,37 +308,19 @@ export default function RewardsRegisterPage() {
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
+                {passwordError && (
+                  <p className="text-xs text-red-400 mt-1.5 flex items-center gap-1.5 font-medium">
+                    <AlertCircle size={14} className="shrink-0 text-red-400" /> {passwordError}
+                  </p>
+                )}
                 {/* Password Requirement Notice Info Box */}
                 <div className="mt-2.5 p-3.5 bg-[#121212] border border-[#c5a059]/30 rounded-lg text-xs text-gray-300 space-y-1.5">
                   <div className="flex items-center gap-1.5 font-semibold text-[#c5a059]">
-                    <Info size={14} className="shrink-0 text-[#c5a059]" /> Password Requirements Notice:
+                    <Info size={14} className="shrink-0 text-[#c5a059]" /> Password Requirement:
                   </div>
-                  <div className="grid grid-cols-2 gap-1.5 pt-1 text-[11px]">
-                    <div className={`flex items-center gap-1.5 ${password.length >= 8 ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
-                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${password.length >= 8 ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
-                        {password.length >= 8 ? '✓' : '•'}
-                      </span>
-                      At least 8 characters
-                    </div>
-                    <div className={`flex items-center gap-1.5 ${/[A-Z]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
-                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[A-Z]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
-                        {/[A-Z]/.test(password) ? '✓' : '•'}
-                      </span>
-                      1 Uppercase letter (A-Z)
-                    </div>
-                    <div className={`flex items-center gap-1.5 ${/[0-9]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
-                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[0-9]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
-                        {/[0-9]/.test(password) ? '✓' : '•'}
-                      </span>
-                      1 Number (0-9)
-                    </div>
-                    <div className={`flex items-center gap-1.5 ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
-                      <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-gray-800 text-gray-500'}`}>
-                        {/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ? '✓' : '•'}
-                      </span>
-                      1 Special char (@, #, $, !)
-                    </div>
-                  </div>
+                  <p className="text-gray-400 text-xs mt-1">
+                    <span className="text-[#c5a059] font-bold">*</span> Password must be between <span className="text-white font-bold">6 and 11 characters</span> long.
+                  </p>
                 </div>
               </div>
 
